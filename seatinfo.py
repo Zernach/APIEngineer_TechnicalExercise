@@ -10,8 +10,10 @@ def return_seat_info(file_name):
 
     with open(file_name) as xml_file:
         
-        # Convert to XML file to a navigable dict object
+        # Convert XML file to a navigable dict object.
         data_dict = xmltodict.parse(xml_file.read())
+
+        # Peel back the dict objects layers til we get to the info that we need.
         root = data_dict['soapenv:Envelope']['soapenv:Body']['ns:OTA_AirSeatMapRS']['ns:SeatMapResponses']['ns:SeatMapResponse']['ns:SeatMapDetails']['ns:CabinClass']
         
         # Generate a seat_list and iterate through all cabins, all rows, and all seats.
@@ -34,7 +36,7 @@ def return_seat_info(file_name):
                     except:
                         price = -1
                     
-                    # Cram the info from this seat into a dict, and add dict to seat_list
+                    # Cram the info from this seat into a dict, and add dict to seat_list.
                     seat_list.append({"seat_id": seat_id,
                                     "type_of": type_of,
                                     "cabin_class": cabin_class,
